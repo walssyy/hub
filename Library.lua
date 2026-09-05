@@ -2484,7 +2484,12 @@ Username.TextColor3 = Library.Theme.Text
                     BorderSizePixel = 0
                 }):AddToTheme({BackgroundColor3 = function() return FromRGB(255, 255, 255) end})
 
-                Instances:Create("UICorner", {                
+                Instances:Create("UICorner", {
+                    Parent = Items["Circle"].Instance,
+                    Name = "\0",
+                    CornerRadius = UDimNew(1, 0)
+                })
+
             end
 
             function Toggle:Get()
