@@ -2067,71 +2067,88 @@ Username.TextColor3 = Library.Theme.Text
             task.wait()
             Window:SetOpen(true)
 
-            -- Floating toggle button
-            local ToggleBtn = Instances:Create("TextButton", {
-                Parent = Library.Holder.Instance,
-                Name = "\0",
-                Size = UDim2New(0, 36, 0, 36),
-                Position = UDim2New(1, -46, 0, 10),
-                BackgroundColor3 = Library.Theme["Accent"],
-                Text = "",
-                AutoButtonColor = false,
-                BorderSizePixel = 0,
-                ZIndex = 99999
-            }):AddToTheme({BackgroundColor3 = 'Accent'})
+            -- Floating toggle button (raw instances, no library wrapper)
+            local ToggleBtn = Instance.new("TextButton")
+            ToggleBtn.Name = "\0"
+            ToggleBtn.Parent = Library.Holder.Instance
+            ToggleBtn.Size = UDim2.new(0, 36, 0, 36)
+            ToggleBtn.Position = UDim2.new(1, -46, 0, 10)
+            ToggleBtn.BackgroundColor3 = Library.Theme["Accent"]
+            ToggleBtn.Text = ""
+            ToggleBtn.AutoButtonColor = false
+            ToggleBtn.BorderSizePixel = 0
+            ToggleBtn.ZIndex = 99999
 
-            Instances:Create("UICorner", {
-                Parent = ToggleBtn.Instance,
-                Name = "\0",
-                CornerRadius = UDimNew(1, 0)
-            })
+            local ToggleCorner = Instance.new("UICorner")
+            ToggleCorner.CornerRadius = UDim.new(1, 0)
+            ToggleCorner.Parent = ToggleBtn
 
-            Instances:Create("UIStroke", {
-                Parent = ToggleBtn.Instance,
-                Name = "\0",
-                Color = Library.Theme["Outline"]
-            }):AddToTheme({Color = 'Outline'})
+            local ToggleStroke = Instance.new("UIStroke")
+            ToggleStroke.Color = Library.Theme["Outline"]
+            ToggleStroke.Parent = ToggleBtn
 
-            Instances:Create("ImageLabel", {
-                Parent = ToggleBtn.Instance,
-                Name = "\0",
-                Size = UDim2New(0, 16, 0, 16),
-                Position = UDim2New(0.5, 0, 0.5, 0),
-                AnchorPoint = Vector2New(0.5, 0.5),
-                BackgroundTransparency = 1,
-                Image = "rbxassetid://72196061405823",
-                ImageColor3 = FromRGB(0, 0, 0),
-                ScaleType = Enum.ScaleType.Fit,
-                ZIndex = 99999
-            })
+            local ToggleIcon = Instance.new("ImageLabel")
+            ToggleIcon.Size = UDim2.new(0, 16, 0, 16)
+            ToggleIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+            ToggleIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+            ToggleIcon.BackgroundTransparency = 1
+            ToggleIcon.Image = "rbxassetid://72196061405823"
+            ToggleIcon.ImageColor3 = FromRGB(0, 0, 0)
+            ToggleIcon.ScaleType = Enum.ScaleType.Fit
+            ToggleIcon.ZIndex = 99999
+            ToggleIcon.Parent = ToggleBtn
 
-            local ToggleDragStart, ToggleStartPos, ToggleDragged, ToggleClickAllowed = nil, nil, true, false
+            local toggleHeld = false
+            local toggleOrigin = nil
+            local toggleMoved = false
 
-            ToggleBtn:Connect("InputBegan", function(Input)
-                if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-                    ToggleDragged = false
-                    ToggleClickAllowed = true
-                    ToggleDragStart = Input.Position
-                    ToggleStartPos = ToggleBtn.Instance.Position
+            ToggleBtn.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    toggleHeld = true
+                    toggleMoved = false
+                    toggleOrigin = input.Position
                 end
             end)
 
-            Library:Connect(UserInputService.InputChanged, function(Input)
-                if ToggleClickAllowed and ToggleDragStart and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
-                    local delta = Input.Position - ToggleDragStart
+            ToggleBtn.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    if toggleHeld and not toggleMoved then
+                        Window:SetOpen(not Window.IsOpen)
+                    end
+                    toggleHeld = false
+                end
+            end)
+
+            UserInputService.InputChanged:Connect(function(input)
+                if toggleHeld and toggleOrigin and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                    local delta = input.Position - toggleOrigin
                     if math.abs(delta.X) > 5 or math.abs(delta.Y) > 5 then
-                        ToggleDragged = true
+                        toggleMoved = true
                     end
                 end
             end)
 
-            ToggleBtn:Connect("MouseButton1Click", function()
-                if not ToggleDragged and ToggleClickAllowed then
-                    Window:SetOpen(not Window.IsOpen)
+            local toggleDragging = false
+            local toggleDragStart, toggleStartPos
+
+            ToggleBtn.MouseButton1Down:Connect(function()
+                toggleDragging = true
+                toggleDragStart = UserInputService:GetMouseLocation()
+                toggleStartPos = ToggleBtn.Position
+            end)
+
+            UserInputService.InputChanged:Connect(function(input)
+                if toggleDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                    local delta = input.Position - toggleDragStart
+                    ToggleBtn.Position = UDim2.new(toggleStartPos.X.Scale, toggleStartPos.X.Offset + delta.X, toggleStartPos.Y.Scale, toggleStartPos.Y.Offset + delta.Y)
                 end
             end)
 
-            ToggleBtn:MakeDraggable()
+            UserInputService.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    toggleDragging = false
+                end
+            end)
 
             return setmetatable(Window, Library)
         end
