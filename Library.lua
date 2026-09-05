@@ -1900,43 +1900,7 @@ Username.FontFace = Library.Font
 Username.TextSize = 16
 Username.TextColor3 = Library.Theme.Text
 
--- Expires label
-local ExpiresLabel = Instance.new("TextLabel")
-ExpiresLabel.Parent = BottomTab
-ExpiresLabel.BackgroundTransparency = 1
-ExpiresLabel.Position = UDim2.new(0, 74, 0, 38)
-ExpiresLabel.Size = UDim2.new(0, 52, 0, 16)
-ExpiresLabel.TextXAlignment = Enum.TextXAlignment.Left
-ExpiresLabel.Text = "Expires:"
-ExpiresLabel.FontFace = Library.Font
-ExpiresLabel.TextSize = 13
-ExpiresLabel.TextTransparency = 0.4
-ExpiresLabel.TextColor3 = Library.Theme.Text
 
--- Countdown text
-local Countdown = Instance.new("TextLabel")
-Countdown.Parent = BottomTab
-Countdown.BackgroundTransparency = 1
-Countdown.Position = UDim2.new(0, 120, 0, 38)
-Countdown.Size = UDim2.new(1, -140, 0, 16)
-Countdown.TextXAlignment = Enum.TextXAlignment.Left
-Countdown.FontFace = Library.Font
-Countdown.TextSize = 13
-Countdown.TextColor3 = Library.Theme.Accent
-
---// COUNTDOWN LOGIC
-local expiresDuration = tonumber(Data.ExpiresSeconds) or (24 * 60 * 60)
-local endTime = os.time() + math.max(0, math.floor(expiresDuration))
-
-RunService.Heartbeat:Connect(function()
-    local remaining = math.max(0, endTime - os.time())
-
-    local hours = math.floor(remaining / 3600)
-    local minutes = math.floor((remaining % 3600) / 60)
-    local seconds = remaining % 60
-
-    Countdown.Text = string.format("%02dh %02dm %02ds", hours, minutes, seconds)
-end)
 
                 Instances:Create("Frame", {
                     Parent = Items["Sidebar"].Instance,
