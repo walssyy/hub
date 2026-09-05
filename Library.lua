@@ -2105,7 +2105,7 @@ Username.TextColor3 = Library.Theme.Text
                 ZIndex = 99999
             })
 
-            local ToggleDragStart, ToggleStartPos, ToggleDragged, ToggleClickAllowed = nil, nil, false, false
+            local ToggleDragStart, ToggleStartPos, ToggleDragged, ToggleClickAllowed = nil, nil, true, false
 
             ToggleBtn:Connect("InputBegan", function(Input)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
@@ -2125,13 +2125,9 @@ Username.TextColor3 = Library.Theme.Text
                 end
             end)
 
-            Library:Connect(UserInputService.InputEnded, function(Input)
-                if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-                    if ToggleClickAllowed and not ToggleDragged then
-                        Window:SetOpen(not Window.IsOpen)
-                    end
-                    ToggleDragStart = nil
-                    ToggleClickAllowed = false
+            ToggleBtn:Connect("MouseButton1Click", function()
+                if not ToggleDragged and ToggleClickAllowed then
+                    Window:SetOpen(not Window.IsOpen)
                 end
             end)
 
