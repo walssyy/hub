@@ -2105,25 +2105,19 @@ Username.TextColor3 = Library.Theme.Text
                 ZIndex = 99999
             })
 
-            local ToggleDragStart, ToggleStartPos, ToggleDragged = nil, nil, false
+            local ToggleDragStart, ToggleStartPos, ToggleDragged, ToggleClickAllowed = nil, nil, false, false
 
             ToggleBtn:Connect("InputBegan", function(Input)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                     ToggleDragged = false
+                    ToggleClickAllowed = true
                     ToggleDragStart = Input.Position
                     ToggleStartPos = ToggleBtn.Instance.Position
-
-                    local conn
-                    conn = ToggleBtn:Connect("InputChanged", function()
-                        if Input.UserInputState == Enum.UserInputState.End then
-                            conn:Disconnect()
-                        end
-                    end)
                 end
             end)
 
             Library:Connect(UserInputService.InputChanged, function(Input)
-                if ToggleDragStart and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
+                if ToggleClickAllowed and ToggleDragStart and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
                     local delta = Input.Position - ToggleDragStart
                     if math.abs(delta.X) > 5 or math.abs(delta.Y) > 5 then
                         ToggleDragged = true
@@ -2133,10 +2127,11 @@ Username.TextColor3 = Library.Theme.Text
 
             Library:Connect(UserInputService.InputEnded, function(Input)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-                    if not ToggleDragged then
+                    if ToggleClickAllowed and not ToggleDragged then
                         Window:SetOpen(not Window.IsOpen)
                     end
                     ToggleDragStart = nil
+                    ToggleClickAllowed = false
                 end
             end)
 
