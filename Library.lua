@@ -908,23 +908,6 @@ local Library do
                 ApplyStrokeMode = Enum.ApplyStrokeMode.Border
             }):AddToTheme({Color = 'Outline'})
             
-            Items["Glow"] = Instances:Create("ImageLabel", {
-                Parent = Items["ColorpickerButton"].Instance,
-                Name = "\0",
-                ImageColor3 = FromRGB(148, 255, 237),
-                ScaleType = Enum.ScaleType.Slice,
-                ImageTransparency = 0.800000011920929,
-                BorderColor3 = FromRGB(0, 0, 0),
-                Size = UDim2New(1, 25, 1, 25),
-                AnchorPoint = Vector2New(0.5, 0.5),
-                Image = "http://www.roblox.com/asset/?id=18245826428",
-                BackgroundTransparency = 1,
-                Position = UDim2New(0.5, 0, 0.5, 0),
-                ZIndex = 2,
-                BorderSizePixel = 0,
-                SliceCenter = RectNew(Vector2New(21, 21), Vector2New(79, 79))
-            })            
-
             Items["ColorpickerWindow"] = Instances:Create("TextButton", {
                 Parent = Library.UnusedHolder.Instance,
                 Name = "\0",
@@ -1092,7 +1075,6 @@ local Library do
             }
 
             Items["ColorpickerButton"]:Tween(nil, {BackgroundColor3 = Colorpicker.Color})
-            Items["Glow"]:Tween(nil, {ImageColor3 = Colorpicker.Color})
             Items["Palette"]:Tween(nil, {BackgroundColor3 = FromHSV(Hue, 1, 1)})
 
             if Data.Callback then 
@@ -2501,28 +2483,8 @@ Username.TextColor3 = Library.Theme.Text
                     Size = UDim2New(0, 10, 0, 10),
                     BorderSizePixel = 0
                 }):AddToTheme({BackgroundColor3 = function() return FromRGB(255, 255, 255) end})
-                
-                Instances:Create("UICorner", {
-                    Parent = Items["Circle"].Instance,
-                    Name = "\0",
-                    CornerRadius = UDimNew(1, 0)
-                })
-                
-                Items["Glow"] = Instances:Create("ImageLabel", {
-                    Parent = Items["Circle"].Instance,
-                    Name = "\0",
-                    ImageColor3 = Library.Theme["Accent"],
-                    ScaleType = Enum.ScaleType.Slice,
-                    ImageTransparency = 1,
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Size = UDim2New(1, 25, 1, 25),
-                    AnchorPoint = Vector2New(0.5, 0.5),
-                    Image = "http://www.roblox.com/asset/?id=18245826428",
-                    BackgroundTransparency = 1,
-                    Position = UDim2New(0.5, 0, 0.5, 0),
-                    BorderSizePixel = 0,
-                    SliceCenter = RectNew(Vector2New(21, 21), Vector2New(79, 79))
-                }):AddToTheme({ImageColor3 = 'Accent'})                
+
+                Instances:Create("UICorner", {                
             end
 
             function Toggle:Get()
@@ -2534,8 +2496,6 @@ Username.TextColor3 = Library.Theme.Text
                 Library.Flags[Toggle.Flag] = Value 
 
                 if Toggle.Value then 
-                    Items["Glow"]:Tween(nil, {ImageTransparency = 0.7})
-                    
                     Items["Circle"]:ChangeItemTheme({BackgroundColor3 = "Accent"})
                     Items["Circle"]:Tween(nil, {
                         AnchorPoint = Vector2New(1, 0.5),
@@ -2546,8 +2506,6 @@ Username.TextColor3 = Library.Theme.Text
 
                     Items["Text"]:Tween(nil, {TextTransparency = 0})
                 else
-                    Items["Glow"]:Tween(nil, {ImageTransparency = 1})
-                    
                     Items["Circle"]:ChangeItemTheme({BackgroundColor3 = function() return FromRGB(255, 255, 255) end})
                     Items["Circle"]:Tween(nil, {
                         AnchorPoint = Vector2New(0, 0.5),
@@ -2816,23 +2774,6 @@ Username.TextColor3 = Library.Theme.Text
                     CornerRadius = UDimNew(0, 6)
                 })
                 
-                Items["Glow"] = Instances:Create("ImageLabel", {
-                    Parent = Items["Accent"].Instance,
-                    Name = "\0",
-                    ImageColor3 = Library.Theme["Accent"],
-                    ScaleType = Enum.ScaleType.Slice,
-                    ImageTransparency = 0.800000011920929,
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Size = UDim2New(1, 25, 1, 25),
-                    AnchorPoint = Vector2New(0.5, 0.5),
-                    Image = "http://www.roblox.com/asset/?id=18245826428",
-                    BackgroundTransparency = 1,
-                    Position = UDim2New(0.5, 0, 0.5, 0),
-                    ZIndex = 2,
-                    BorderSizePixel = 0,
-                    SliceCenter = RectNew(Vector2New(21, 21), Vector2New(79, 79))
-                }):AddToTheme({ImageColor3 = 'Accent'})
-                
                 Items["Dragger"] = Instances:Create("Frame", {
                     Parent = Items["Accent"].Instance,
                     Name = "\0",
@@ -2848,23 +2789,6 @@ Username.TextColor3 = Library.Theme.Text
                     Name = "\0",
                     CornerRadius = UDimNew(0, 6)
                 })
-                
-                Items["Glow2"] = Instances:Create("ImageLabel", {
-                    Parent = Items["Dragger"].Instance,
-                    Name = "\0",
-                    ImageColor3 = Library.Theme["Accent"],
-                    ScaleType = Enum.ScaleType.Slice,
-                    ImageTransparency = 0.800000011920929,
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Size = UDim2New(1, 25, 1, 25),
-                    AnchorPoint = Vector2New(0.5, 0.5),
-                    Image = "http://www.roblox.com/asset/?id=18245826428",
-                    BackgroundTransparency = 1,
-                    Position = UDim2New(0.5, 0, 0.5, 0),
-                    ZIndex = 2,
-                    BorderSizePixel = 0,
-                    SliceCenter = RectNew(Vector2New(21, 21), Vector2New(79, 79))
-                }):AddToTheme({ImageColor3 = 'Accent'})
                 
                 Items["Value"] = Instances:Create("TextLabel", {
                     Parent = Items["Slider"].Instance,
@@ -3262,22 +3186,6 @@ Username.TextColor3 = Library.Theme.Text
                     BackgroundColor3 = Library.Theme["Accent"]
                 }):AddToTheme({BackgroundColor3 = 'Accent'})
                 
-                local OptionGlow = Instances:Create("ImageLabel", {
-                    Parent = OptionLiner.Instance,
-                    Name = "\0",
-                    ImageColor3 = Library.Theme["Accent"],
-                    ScaleType = Enum.ScaleType.Slice,
-                    ImageTransparency = 1,
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Size = UDim2New(1, 25, 1, 25),
-                    AnchorPoint = Vector2New(0.5, 0.5),
-                    Image = "http://www.roblox.com/asset/?id=18245826428",
-                    BackgroundTransparency = 1,
-                    Position = UDim2New(0.5, 0, 0.5, 0),
-                    BorderSizePixel = 0,
-                    SliceCenter = RectNew(Vector2New(21, 21), Vector2New(79, 79))
-                }):AddToTheme({ImageColor3 = 'Accent'})
-                
                 Instances:Create("UICorner", {
                     Parent = OptionLiner.Instance,
                     Name = "\0",
@@ -3305,7 +3213,6 @@ Username.TextColor3 = Library.Theme.Text
                     Button = OptionButton,
                     Name = Option,
                     Liner = OptionLiner,
-                    Glow = OptionGlow,
                     Text = OptionText,
                     Selected = false
                 }
@@ -3313,11 +3220,9 @@ Username.TextColor3 = Library.Theme.Text
                 function OptionData:Toggle(Value)
                     if Value == "Active" then
                         OptionData.Liner:Tween(nil, {BackgroundTransparency = 0, Size = UDim2New(0, 3, 1, 0)})
-                        OptionData.Glow:Tween(nil, {ImageTransparency = 0.7})
                         OptionData.Text:Tween(nil, {Position = UDim2New(0, 12, 0.5 ,0), TextTransparency = 0})
                     else
                         OptionData.Liner:Tween(nil, {BackgroundTransparency = 1, Size = UDim2New(0, 3, 0, 0)})
-                        OptionData.Glow:Tween(nil, {ImageTransparency = 1})
                         OptionData.Text:Tween(nil, {Position = UDim2New(0, 0, 0.5 ,0), TextTransparency = 0.5})
                     end
                 end
