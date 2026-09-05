@@ -3267,8 +3267,8 @@ Username.TextColor3 = Library.Theme.Text
 
                             Items["Value"].Instance.Text = OptionData.Name
                         else
-                            Dropdown.Value = nil
-                            Library.Flags[Dropdown.Flag] = nil
+                            Dropdown.Value = {}
+                            Library.Flags[Dropdown.Flag] = {}
 
                             OptionData.Selected = false
                             OptionData:Toggle("Inactive")
