@@ -2071,8 +2071,8 @@ Username.TextColor3 = Library.Theme.Text
             local ToggleBtn = Instance.new("ImageButton")
             ToggleBtn.Name = "\0"
             ToggleBtn.Parent = Library.Holder.Instance
-            ToggleBtn.Size = UDim2.new(0, 36, 0, 36)
-            ToggleBtn.Position = UDim2.new(1, -46, 0, 10)
+            ToggleBtn.Size = UDim2.new(0, 40, 0, 40)
+            ToggleBtn.Position = UDim2.new(1, -50, 0, 10)
             ToggleBtn.BackgroundColor3 = Library.Theme["Accent"]
             ToggleBtn.BackgroundTransparency = 0
             ToggleBtn.Image = ""
@@ -2082,7 +2082,7 @@ Username.TextColor3 = Library.Theme.Text
             ToggleBtn.ClipsDescendants = true
 
             local ToggleCorner = Instance.new("UICorner")
-            ToggleCorner.CornerRadius = UDim.new(1, 0)
+            ToggleCorner.CornerRadius = UDim.new(0, 8)
             ToggleCorner.Parent = ToggleBtn
 
             local ToggleStroke = Instance.new("UIStroke")
