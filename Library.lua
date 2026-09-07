@@ -2075,11 +2075,12 @@ Username.TextColor3 = Library.Theme.Text
             ToggleBtn.Position = UDim2.new(1, -50, 0, 10)
             ToggleBtn.BackgroundColor3 = Library.Theme["Accent"]
             ToggleBtn.BackgroundTransparency = 0
-            ToggleBtn.Image = ""
+            ToggleBtn.Image = "rbxassetid://81441172534384"
+            ToggleBtn.ImageColor3 = FromRGB(0, 0, 0)
+            ToggleBtn.ScaleType = Enum.ScaleType.Fit
             ToggleBtn.BorderSizePixel = 0
             ToggleBtn.ZIndex = 99999
             ToggleBtn.Active = true
-            ToggleBtn.ClipsDescendants = true
 
             local ToggleCorner = Instance.new("UICorner")
             ToggleCorner.CornerRadius = UDim.new(0, 8)
@@ -2088,17 +2089,6 @@ Username.TextColor3 = Library.Theme.Text
             local ToggleStroke = Instance.new("UIStroke")
             ToggleStroke.Color = Library.Theme["Outline"]
             ToggleStroke.Parent = ToggleBtn
-
-            local ToggleIcon = Instance.new("ImageLabel")
-            ToggleIcon.Size = UDim2.new(0, 28, 0, 28)
-            ToggleIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-            ToggleIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-            ToggleIcon.BackgroundTransparency = 1
-            ToggleIcon.Image = "rbxassetid://81441172534384"
-            ToggleIcon.ImageColor3 = FromRGB(0, 0, 0)
-            ToggleIcon.ScaleType = Enum.ScaleType.Fit
-            ToggleIcon.ZIndex = 10000
-            ToggleIcon.Parent = ToggleBtn
 
             local toggleDragging = false
             local toggleDragStart, toggleStartPos
