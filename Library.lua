@@ -2090,11 +2090,11 @@ Username.TextColor3 = Library.Theme.Text
             ToggleStroke.Parent = ToggleBtn
 
             local ToggleIcon = Instance.new("ImageLabel")
-            ToggleIcon.Size = UDim2.new(0, 16, 0, 16)
+            ToggleIcon.Size = UDim2.new(0, 28, 0, 28)
             ToggleIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
             ToggleIcon.AnchorPoint = Vector2.new(0.5, 0.5)
             ToggleIcon.BackgroundTransparency = 1
-            ToggleIcon.Image = "rbxassetid://72196061405823"
+            ToggleIcon.Image = "rbxassetid://81441172534384"
             ToggleIcon.ImageColor3 = FromRGB(0, 0, 0)
             ToggleIcon.ScaleType = Enum.ScaleType.Fit
             ToggleIcon.ZIndex = 10000
