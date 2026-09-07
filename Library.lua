@@ -2075,8 +2075,8 @@ Username.TextColor3 = Library.Theme.Text
             ToggleBtn.Position = UDim2.new(1, -50, 0, 10)
             ToggleBtn.BackgroundColor3 = Library.Theme["Accent"]
             ToggleBtn.BackgroundTransparency = 0
-            ToggleBtn.Image = "rbxassetid://81441172534384"
-            ToggleBtn.ImageColor3 = FromRGB(0, 0, 0)
+            ToggleBtn.Image = "http://www.roblox.com/asset/?id=81441172534384"
+            ToggleBtn.BackgroundTransparency = 1
             ToggleBtn.ScaleType = Enum.ScaleType.Fit
             ToggleBtn.BorderSizePixel = 0
             ToggleBtn.ZIndex = 99999
