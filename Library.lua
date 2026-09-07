@@ -2108,7 +2108,9 @@ Username.TextColor3 = Library.Theme.Text
                     toggleMoved = false
                     toggleOrigin = input.Position
 
-                    toggleDragStart = UserInputService:GetMouseLocation()
+                    local absPos = ToggleBtn.AbsolutePosition
+                    ToggleBtn.Position = UDim2.new(0, absPos.X, 0, absPos.Y)
+                    toggleDragStart = input.Position
                     toggleStartPos = ToggleBtn.Position
                 end
             end)
