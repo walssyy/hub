@@ -2107,6 +2107,9 @@ Username.TextColor3 = Library.Theme.Text
                     toggleHeld = true
                     toggleMoved = false
                     toggleOrigin = input.Position
+
+                    toggleDragStart = UserInputService:GetMouseLocation()
+                    toggleStartPos = ToggleBtn.Position
                 end
             end)
 
@@ -2119,34 +2122,27 @@ Username.TextColor3 = Library.Theme.Text
                 end
             end)
 
-            UserInputService.InputChanged:Connect(function(input)
-                if toggleHeld and toggleOrigin and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                    local delta = input.Position - toggleOrigin
-                    if math.abs(delta.X) > 5 or math.abs(delta.Y) > 5 then
-                        toggleMoved = true
-                    end
-                end
-            end)
-
-            local toggleDragging = false
             local toggleDragStart, toggleStartPos
 
-            ToggleBtn.MouseButton1Down:Connect(function()
-                toggleDragging = true
-                toggleDragStart = UserInputService:GetMouseLocation()
-                toggleStartPos = ToggleBtn.Position
-            end)
-
             UserInputService.InputChanged:Connect(function(input)
-                if toggleDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                    local delta = input.Position - toggleDragStart
-                    ToggleBtn.Position = UDim2.new(toggleStartPos.X.Scale, toggleStartPos.X.Offset + delta.X, toggleStartPos.Y.Scale, toggleStartPos.Y.Offset + delta.Y)
+                if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                    if toggleHeld and toggleOrigin then
+                        local delta = input.Position - toggleOrigin
+                        if math.abs(delta.X) > 5 or math.abs(delta.Y) > 5 then
+                            toggleMoved = true
+                        end
+                    end
+
+                    if toggleMoved and toggleDragStart then
+                        local delta = input.Position - toggleDragStart
+                        ToggleBtn.Position = UDim2.new(toggleStartPos.X.Scale, toggleStartPos.X.Offset + delta.X, toggleStartPos.Y.Scale, toggleStartPos.Y.Offset + delta.Y)
+                    end
                 end
             end)
 
             UserInputService.InputEnded:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                    toggleDragging = false
+                    toggleHeld = false
                 end
             end)
 
